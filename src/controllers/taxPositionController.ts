@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getSales, getTaxPayment } from "../models";
+import { getAmendments, getSales, getTaxPayment } from "../models";
 import { calculateTaxPosition } from "../utils/calculateTax";
 
 export const queryTaxPosition = (req: Request, res: Response) => {
@@ -11,7 +11,8 @@ export const queryTaxPosition = (req: Request, res: Response) => {
 
   const taxPayments = getTaxPayment();
   const sales = getSales();
-  const taxPosition = calculateTaxPosition(sales, taxPayments, date as string);
+  const amendments = getAmendments()
+  const taxPosition = calculateTaxPosition(sales, taxPayments, amendments, date as string);
 
   res.status(200).json({
     date: date,

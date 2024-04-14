@@ -1,12 +1,17 @@
-import { Sale, TaxPayment, Item } from "../types";
+import { Sale, TaxPayment, Item, Amendment } from "../types";
 
 export const calculateTaxPosition = (
   sales: Sale[],
   taxPayments: TaxPayment[],
+  amendments: Amendment[],
   date: string
 ): number => {
   let taxFromSales = 0;
   let taxPaid = 0;
+
+  amendments.forEach((amendment) => {
+    sales.find;
+  });
 
   sales.forEach((sale) => {
     if (new Date(sale.date) <= new Date(date)) {

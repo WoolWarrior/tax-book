@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addSale, addTaxPayment } from "../models";
+import { addSale, addTaxPayment, getAmendments, getSales } from "../models";
 import { Sale, TaxPayment } from "../types";
 
 export const handleTransaction = (req: Request, res: Response) => {
@@ -7,6 +7,8 @@ export const handleTransaction = (req: Request, res: Response) => {
   if (eventType === "SALES") {
     const newSale: Sale = req.body as Sale;
     addSale(newSale);
+    console.log(getAmendments(), getSales());
+
     res.status(202).send();
   }
 
