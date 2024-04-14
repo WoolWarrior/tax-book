@@ -19,3 +19,11 @@ content-type: application/json
 
 ###
 
+POST http://localhost:3000/transactions HTTP/1.1
+content-type: application/json
+
+{
+	"eventType": "TAX_PAYMENT",
+	"date": "2024-02-22T17:29:39Z",
+	"amount": 74901
+}

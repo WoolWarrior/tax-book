@@ -1,6 +1,6 @@
 import { Request, Response } from "express";
 import { addSale, addTaxPayment } from "../models/eventModel";
-import { Sale, TaxPayment } from "../types/event";
+import { Sale, TaxPayment } from "../types";
 
 export const handleTransaction = (req: Request, res: Response) => {
   const { eventType } = req.body;

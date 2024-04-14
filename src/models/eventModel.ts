@@ -1,4 +1,4 @@
-import { Amendment, TaxPayment, Sale } from "../types/event";
+import { Amendment, TaxPayment, Sale } from "../types";
 
 let events: Event[] = [];
 let amendments: Amendment[] = [];
