@@ -8,7 +8,7 @@ import { Sale } from "./Sale";
 
 export class Item extends Model {
   public itemId!: string;
-  public saleId!: string;
+  public invoiceId!: string;
   public cost!: number;
   public taxRate!: number;
 
@@ -24,12 +24,12 @@ export class Item extends Model {
           defaultValue: DataTypes.STRING,
           allowNull: false,
         },
-        saleId: {
-          type: DataTypes.UUID,
+        invoiceId: {
+          type: DataTypes.STRING,
           allowNull: false,
           references: {
             model: "sales", // This is a reference to the Sales table
-            key: "saleId",
+            key: "invoiceId",
           },
         },
         cost: {
@@ -51,7 +51,7 @@ export class Item extends Model {
   public static associate(models: any) {
     this.belongsTo(models.Sale, {
       as: "sale", // Alias for when accessing Sale through Item
-      foreignKey: "saleId",
+      foreignKey: "invoiceId",
     });
   }
 }

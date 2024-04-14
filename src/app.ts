@@ -18,14 +18,14 @@ app.post("/transactions", async (req: Request, res: Response) => {
       const itemPromises = items.map((item: any) =>
         Item.create({
           ...item,
-          saleId: sale.saleId, // Now a UUID string
+          invoiceId: sale.invoiceId, // Now a UUID string
         })
       );
 
       await Promise.all(itemPromises);
 
       return res.status(202).send({
-        saleId: sale.saleId,
+        invoiceId: sale.invoiceId,
         itemsRegistered: items.length,
       });
     } catch (error) {

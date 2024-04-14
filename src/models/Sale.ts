@@ -11,7 +11,7 @@ import {
 import { Item } from "./Item";
 
 export class Sale extends Model {
-  public saleId!: string;
+  // public saleId!: string;
   public invoiceId!: string;
   public date!: Date;
   public items!: Item[];
@@ -26,14 +26,14 @@ export class Sale extends Model {
   public static initialize(sequelize: Sequelize): void {
     this.init(
       {
-        saleId: {
-          type: DataTypes.UUID,
-          primaryKey: true,
-          defaultValue: DataTypes.UUIDV4,
-          allowNull: false,
-        },
+        // saleId: {
+        //   type: DataTypes.UUID,
+        //   defaultValue: DataTypes.UUIDV4,
+        //   allowNull: false,
+        // },
         invoiceId: {
           type: DataTypes.STRING,
+          primaryKey: true,
           allowNull: false,
           unique: true,
         },
@@ -52,7 +52,7 @@ export class Sale extends Model {
   public static associate(models: any) {
     this.hasMany(models.Item, {
       as: "items",
-      foreignKey: "saleId",
+      foreignKey: "invoiceId",
     });
   }
 }
