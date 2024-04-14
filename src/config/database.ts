@@ -1,10 +1,11 @@
 import { Options } from 'sequelize';
+import 'dotenv/config'
 
 export const development: Options = {
-  username: 'vcmyizzx',
-  password: 'npN6k9SrIDkDoewWWNxa_vYHAub--knH',
-  database: 'vcmyizzx',
-  host: 'kandula.db.elephantsql.com',
+  username: process.env.USERNAME,
+  password: process.env.PASSWORD,
+  database: process.env.DATABASE,
+  host: process.env.HOST,
   dialect: 'postgres',
   logging: false,
   define: {
