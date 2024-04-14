@@ -7,7 +7,6 @@ import {
 import { Item } from "../models/Item";
 
 export const calculateTotalSalesTax = async (date: string): Promise<number> => {
-  console.log("===calculateTotalSalesTax===");
   const sales = await SaleModel.findAll({
     include: [
       {
