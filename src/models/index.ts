@@ -1,18 +1,15 @@
 import { Amendment, TaxPayment, Sale } from "../types";
 
-let events: Event[] = [];
 let amendments: Amendment[] = [];
 let sales: Sale[] = [];
 let taxPayments: TaxPayment[] = [];
 
 export const addSale = (newSale: Sale) => {
   sales.push(newSale);
-  console.log({ sales });
 };
 
 export const addTaxPayment = (newTaxPayment: TaxPayment) => {
   taxPayments.push(newTaxPayment);
-  console.log({ taxPayments });
 };
 
 export const amendSale = (amendment: Amendment) => {

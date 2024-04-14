@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getSales, getTaxPayment } from "../models/eventModel";
+import { getSales, getTaxPayment } from "../models";
 import { calculateTaxPosition } from "../utils/calculateTax";
 
 export const queryTaxPosition = (req: Request, res: Response) => {

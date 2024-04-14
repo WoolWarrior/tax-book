@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { addSale, addTaxPayment } from "../models/eventModel";
+import { addSale, addTaxPayment } from "../models";
 import { Sale, TaxPayment } from "../types";
 
 export const handleTransaction = (req: Request, res: Response) => {
