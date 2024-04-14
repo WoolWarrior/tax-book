@@ -9,7 +9,3 @@ export const handleAmendSale = (req: Request, res: Response) => {
   console.log(getAmendments(), getSales());
   res.status(202).send();
 };
-
-export const querySales = (req: Request, res: Response) => {
-  res.json(getSales());
-};

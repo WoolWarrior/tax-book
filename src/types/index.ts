@@ -15,8 +15,6 @@ export type TaxPayment = {
   amount: number;
 };
 
-// export type Event = Sales | TaxPayment;
-
 export type Amendment = {
   date: string;
   invoiceId: string;

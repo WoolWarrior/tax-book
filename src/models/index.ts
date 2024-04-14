@@ -1,40 +1,40 @@
-import { Amendment, TaxPayment, Sale } from "../types";
+import { Amendment, Sale, TaxPayment } from "../types";
 
 let amendments: Amendment[] = [];
 let sales: Sale[] = [];
 let taxPayments: TaxPayment[] = [];
 
-export const addSale = (newSale: Sale) => {
-  const index = amendments.findIndex((amendment) => {
-    return amendment.invoiceId === newSale.invoiceId;
-  });
-  if (index > -1) {
-    const amendment = amendments[index];
-    const item = newSale.items.find((item) => item.itemId === amendment.itemId);
-    if (item) {
-      item.cost = amendment.cost;
-      item.taxRate = amendment.taxRate;
-    } else {
-      newSale.items.push({
-        itemId: amendment.itemId,
-        cost: amendment.cost,
-        taxRate: amendment.taxRate,
-      });
+export const addSale = (newSale: Sale): void => {
+  amendments.forEach((amendment, index) => {
+    if (amendment.invoiceId === newSale.invoiceId) {
+      const itemIndex = newSale.items.findIndex(
+        (item) => item.itemId === amendment.itemId
+      );
+      if (itemIndex > -1) {
+        // If item exists, amend it
+        newSale.items[itemIndex].cost = amendment.cost;
+        newSale.items[itemIndex].taxRate = amendment.taxRate;
+      } else {
+        // If item does not exist, add new item to the sale
+        newSale.items.push({
+          itemId: amendment.itemId,
+          cost: amendment.cost,
+          taxRate: amendment.taxRate,
+        });
+      }
+      // Remove the processed amendment
+      amendments.splice(index, 1);
     }
-    amendments.splice(index, 1);
-  }
+  });
   sales.push(newSale);
 };
 
-export const addTaxPayment = (newTaxPayment: TaxPayment) => {
+export const addTaxPayment = (newTaxPayment: TaxPayment): void => {
   taxPayments.push(newTaxPayment);
 };
 
-export const amendSale = (newAmendment: Amendment) => {
-  const sale = sales.find((sale) => {
-    return sale.invoiceId === newAmendment.invoiceId;
-  });
-  console.log({ sale });
+export const amendSale = (newAmendment: Amendment): void => {
+  const sale = sales.find((sale) => sale.invoiceId === newAmendment.invoiceId);
   if (sale) {
     const item = sale.items.find((item) => item.itemId === newAmendment.itemId);
     if (item) {
@@ -48,10 +48,11 @@ export const amendSale = (newAmendment: Amendment) => {
       });
     }
   } else {
+    // If no matching sale is found, store the amendment for future application
     amendments.push(newAmendment);
   }
 };
 
 export const getSales = (): Sale[] => sales;
-export const getTaxPayment = (): TaxPayment[] => taxPayments;
+export const getTaxPayments = (): TaxPayment[] => taxPayments;
 export const getAmendments = (): Amendment[] => amendments;

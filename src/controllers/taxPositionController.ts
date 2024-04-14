@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { getAmendments, getSales, getTaxPayment } from "../models";
+import { getAmendments, getSales, getTaxPayments } from "../models";
 import { calculateTaxPosition } from "../utils/calculateTax";
 
 export const queryTaxPosition = (req: Request, res: Response) => {
@@ -9,7 +9,7 @@ export const queryTaxPosition = (req: Request, res: Response) => {
     return res.status(400).json({ error: "Date parameter is required" });
   }
 
-  const taxPayments = getTaxPayment();
+  const taxPayments = getTaxPayments();
   const sales = getSales();
   const amendments = getAmendments()
   const taxPosition = calculateTaxPosition(sales, taxPayments, amendments, date as string);
