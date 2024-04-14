@@ -3,6 +3,7 @@ import { development } from "../config/database"; // Ensure this contains the co
 import { Sale } from "./Sale";
 import { Item } from "./Item";
 import { TaxPayment } from "./TaxPayment";
+import { Amendment } from "./Amendment";
 
 const sequelize = new Sequelize(development);
 
@@ -10,6 +11,7 @@ const sequelize = new Sequelize(development);
 Sale.initialize(sequelize);
 Item.initialize(sequelize);
 TaxPayment.initialize(sequelize); // Initialize the TaxPayment model
+Amendment.initialize(sequelize);
 
 // Associate models
 Sale.associate({ Item }); // Passing a reference to Item model
@@ -19,4 +21,4 @@ sequelize.sync({ force: true }).then(() => {
   console.log("Database & tables created!");
 });
 
-export { sequelize, Sale, Item, TaxPayment };
+export { sequelize, Sale, Item, TaxPayment, Amendment };

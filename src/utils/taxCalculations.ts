@@ -22,7 +22,6 @@ export const calculateTotalSalesTax = async (date: string): Promise<number> => {
       },
     },
   });
-  console.log({ sales });
 
   let totalTax = 0;
   sales.forEach((sale) => {

@@ -26,11 +26,6 @@ export class Sale extends Model {
   public static initialize(sequelize: Sequelize): void {
     this.init(
       {
-        // saleId: {
-        //   type: DataTypes.UUID,
-        //   defaultValue: DataTypes.UUIDV4,
-        //   allowNull: false,
-        // },
         invoiceId: {
           type: DataTypes.STRING,
           primaryKey: true,
