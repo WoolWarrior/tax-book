@@ -27,6 +27,10 @@ npm
 npm i
 ```
 
+#### Create .env file:
+
+Pass the database credential to .env file
+
 #### Start the server:
 ```
 npm start
