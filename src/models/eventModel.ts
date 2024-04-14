@@ -1,39 +1,46 @@
-import { Event, Item, Amendment } from '../types/event';
+import { Amendment, TaxPayment, Sale } from "../types/event";
 
 let events: Event[] = [];
 let amendments: Amendment[] = [];
+let sales: Sale[] = [];
+let taxPayments: TaxPayment[] = [];
 
-export const addEvent = (event: Event) => {
-  // Apply any pending amendments
-  const pendingAmendments = amendments.filter(am => am.invoiceId === event.invoiceId);
-  pendingAmendments.forEach(am => {
-    const item = event.items?.find(it => it.itemId === am.itemId);
-    if (item) {
-      item.cost = am.cost;
-      item.taxRate = am.taxRate;
-    } else if (event.items) {
-      event.items.push({ itemId: am.itemId, cost: am.cost, taxRate: am.taxRate });
-    }
-  });
+export const addSale = (newSale: Sale) => {
+  sales.push(newSale);
+  console.log({ sales });
+};
 
-  events.push(event);
+export const addTaxPayment = (newTaxPayment: TaxPayment) => {
+  taxPayments.push(newTaxPayment);
+  console.log({ taxPayments });
 };
 
 export const amendSale = (amendment: Amendment) => {
-  const event = events.find(e => e.invoiceId === amendment.invoiceId);
-  if (event) {
-    const item = event.items?.find(it => it.itemId === amendment.itemId);
-    if (item) {
-      item.cost = amendment.cost;
-      item.taxRate = amendment.taxRate;
-    } else if (event.items) {
-      event.items.push({ itemId: amendment.itemId, cost: amendment.cost, taxRate: amendment.taxRate });
-    }
-  } else {
-    // Store amendment for future processing
-    amendments.push(amendment);
-  }
+  console.log({ amendment });
+  // const saleEvent = events.find(
+  //   (e) =>
+  //     e.eventType === "SALES" &&
+  //     (e as SalesEvent).invoiceId === amendment.invoiceId
+  // ) as SalesEvent | undefined;
+
+  // if (saleEvent) {
+  //   const item = saleEvent.items.find((it) => it.itemId === amendment.itemId);
+  //   if (item) {
+  //     item.cost = amendment.cost;
+  //     item.taxRate = amendment.taxRate;
+  //   } else {
+  //     saleEvent.items.push({
+  //       itemId: amendment.itemId,
+  //       cost: amendment.cost,
+  //       taxRate: amendment.taxRate,
+  //     });
+  //   }
+  // } else {
+  //   // Store amendment for future processing
+  //   amendments.push(amendment);
+  // }
 };
 
-export const getEvents = () => events;
-export const getAmendments = () => amendments;
+export const getSales = (): Sale[] => sales;
+export const getTaxPayment = (): TaxPayment[] => taxPayments;
+export const getAmendments = (): Amendment[] => amendments;
