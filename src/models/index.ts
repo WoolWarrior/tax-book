@@ -1,15 +1,22 @@
 import { Sequelize } from "sequelize";
-import { development } from "../config/database";
-import { initSale, Sale } from "./Sale";
-import { initItem, Item } from "./Item";
-import { initTaxPayment, TaxPayment } from "./TaxPayment"; // Import the TaxPayment model
+import { development } from "../config/database"; // Ensure this contains the correct config settings
+import { Sale } from "./Sale";
+import { Item } from "./Item";
+import { TaxPayment } from "./TaxPayment";
 
-export const sequelize = new Sequelize(development);
+const sequelize = new Sequelize(development);
 
-export const SaleModel = initSale(sequelize);
-export const ItemModel = initItem(sequelize);
-export const TaxPaymentModel = initTaxPayment(sequelize); // Initialize the TaxPayment model
+// Initialize models
+Sale.initialize(sequelize);
+Item.initialize(sequelize);
+TaxPayment.initialize(sequelize); // Initialize the TaxPayment model
+
+// Associate models
+Sale.associate({ Item }); // Passing a reference to Item model
+Item.associate({ Sale }); // Passing a reference to Sale model
 
 sequelize.sync({ force: true }).then(() => {
   console.log("Database & tables created!");
 });
+
+export { sequelize, Sale, Item, TaxPayment };

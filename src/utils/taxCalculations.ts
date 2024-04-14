@@ -1,17 +1,21 @@
 import { Op } from "sequelize";
-import { SaleModel, ItemModel, TaxPaymentModel } from "../models";
+import {
+  Sale as SaleModel,
+  Item as ItemModel,
+  TaxPayment as TaxPaymentModel,
+} from "../models";
 import { Item } from "../models/Item";
 
 export const calculateTotalSalesTax = async (date: string): Promise<number> => {
   console.log("===calculateTotalSalesTax===");
   const sales = await SaleModel.findAll({
-    // include: [
-    //   {
-    //     model: ItemModel,
-    //     as: "items",
-    //     attributes: ["cost", "taxRate"],
-    //   },
-    // ],
+    include: [
+      {
+        model: ItemModel,
+        as: "items",
+        attributes: ["cost", "taxRate"],
+      },
+    ],
     where: {
       date: {
         [Op.lte]: new Date(date),

@@ -1,5 +1,5 @@
 import express, { Request, Response } from "express";
-import { SaleModel, ItemModel, TaxPaymentModel } from "./models";
+import { Sale, Item, TaxPayment } from "./models";
 import {
   calculateTotalSalesTax,
   calculateTotalTaxPayments,
@@ -14,9 +14,9 @@ app.post("/transactions", async (req: Request, res: Response) => {
   if (eventType === "SALES") {
     const { invoiceId, date, items } = req.body;
     try {
-      const sale = await SaleModel.create({ invoiceId, date });
+      const sale = await Sale.create({ invoiceId, date });
       const itemPromises = items.map((item: any) =>
-        ItemModel.create({
+        Item.create({
           ...item,
           saleId: sale.saleId, // Now a UUID string
         })
@@ -37,7 +37,7 @@ app.post("/transactions", async (req: Request, res: Response) => {
   if (eventType === "TAX_PAYMENT") {
     const { date, amount } = req.body;
     try {
-      const newPayment = await TaxPaymentModel.create({
+      const newPayment = await TaxPayment.create({
         date,
         amount,
       });
